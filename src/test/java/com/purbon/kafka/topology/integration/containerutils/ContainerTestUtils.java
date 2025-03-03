@@ -34,19 +34,12 @@ public final class ContainerTestUtils {
   }
 
   public static AdminClient getSaslJulieAdminClient(final String boostrapServers) {
-    return AdminClient.create(
-        getSaslConfig(
-            boostrapServers,
-            JULIE_USERNAME,
-            JULIE_PASSWORD));
+    return AdminClient.create(getSaslConfig(boostrapServers, JULIE_USERNAME, JULIE_PASSWORD));
   }
 
   public static AdminClient getSaslSuperUserAdminClient(final String boostrapServers) {
     return AdminClient.create(
-        getSaslConfig(
-            boostrapServers,
-            DEFAULT_SUPER_USERNAME,
-            DEFAULT_SUPER_PASSWORD));
+        getSaslConfig(boostrapServers, DEFAULT_SUPER_USERNAME, DEFAULT_SUPER_PASSWORD));
   }
 
   public static Map<String, Object> getSaslConfig(
@@ -176,11 +169,7 @@ public final class ContainerTestUtils {
       ResourcePattern resourcePattern =
           new ResourcePattern(resourceType, resourceName, PatternType.LITERAL);
       AccessControlEntry accessControlEntry =
-          new AccessControlEntry(
-              "User:" + JULIE_USERNAME,
-              "*",
-              op,
-              AclPermissionType.ALLOW);
+          new AccessControlEntry("User:" + JULIE_USERNAME, "*", op, AclPermissionType.ALLOW);
       bindings.add(new AclBinding(resourcePattern, accessControlEntry));
     }
     return bindings;
