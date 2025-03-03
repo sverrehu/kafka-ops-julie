@@ -20,6 +20,10 @@ import org.apache.kafka.common.resource.ResourceType;
 
 public final class ContainerTestUtils {
 
+  public static final String DEFAULT_SUPER_USERNAME = "kafka";
+  public static final String DEFAULT_SUPER_PASSWORD = "kafka";
+  public static final String JULIE_USERNAME = "julie";
+  public static final String JULIE_PASSWORD = "julie-secret";
   static final String DEFAULT_CP_KAFKA_VERSION = "7.9.0";
   public static final int NUM_JULIE_INITIAL_ACLS = 11;
 
@@ -33,16 +37,16 @@ public final class ContainerTestUtils {
     return AdminClient.create(
         getSaslConfig(
             boostrapServers,
-            SaslPlaintextKafkaContainer.JULIE_USERNAME,
-            SaslPlaintextKafkaContainer.JULIE_PASSWORD));
+            JULIE_USERNAME,
+            JULIE_PASSWORD));
   }
 
   public static AdminClient getSaslSuperUserAdminClient(final String boostrapServers) {
     return AdminClient.create(
         getSaslConfig(
             boostrapServers,
-            SaslPlaintextKafkaContainer.DEFAULT_SUPER_USERNAME,
-            SaslPlaintextKafkaContainer.DEFAULT_SUPER_PASSWORD));
+            DEFAULT_SUPER_USERNAME,
+            DEFAULT_SUPER_PASSWORD));
   }
 
   public static Map<String, Object> getSaslConfig(
@@ -117,7 +121,11 @@ public final class ContainerTestUtils {
   }
 
   public static void resetAcls(AlternativeKafkaContainer container) {
-    AdminClient admin = getSaslSuperUserAdminClient(container.getBootstrapServers());
+    resetAcls(container.getBootstrapServers());
+  }
+
+  public static void resetAcls(String bootstrapServers) {
+    AdminClient admin = getSaslSuperUserAdminClient(bootstrapServers);
     clearAllAcls(admin);
     setupJulieAcls(admin);
   }
@@ -169,7 +177,7 @@ public final class ContainerTestUtils {
           new ResourcePattern(resourceType, resourceName, PatternType.LITERAL);
       AccessControlEntry accessControlEntry =
           new AccessControlEntry(
-              "User:" + SaslPlaintextKafkaContainer.JULIE_USERNAME,
+              "User:" + JULIE_USERNAME,
               "*",
               op,
               AclPermissionType.ALLOW);
