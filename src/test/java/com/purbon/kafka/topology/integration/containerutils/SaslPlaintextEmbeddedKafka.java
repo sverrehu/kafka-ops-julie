@@ -7,29 +7,28 @@ import org.apache.kafka.metadata.authorizer.StandardAuthorizer;
 
 public final class SaslPlaintextEmbeddedKafka {
 
-  private static final String JAAS_ADMIN_USER_LINE =
-      "org.apache.kafka.common.security.plain.PlainLoginModule required "
-          + "username=\""
-          + ContainerTestUtils.DEFAULT_SUPER_USERNAME
-          + "\" password=\""
-          + ContainerTestUtils.DEFAULT_SUPER_USERNAME
-          + "\" user_kafka=\""
-          + ContainerTestUtils.DEFAULT_SUPER_PASSWORD
-          + "\" "
-          + "user_"
-          + ContainerTestUtils.JULIE_USERNAME
-          + "=\""
-          + ContainerTestUtils.JULIE_PASSWORD
-          + "\" "
-          + ";";
+  private static final String[] EXTRA_USERS =
+      new String[] {
+        ContainerTestUtils.UNKNOWN_USERNAME,
+        ContainerTestUtils.NO_ACCESS_USERNAME,
+        ContainerTestUtils.PRODUCER_USERNAME,
+        ContainerTestUtils.CONSUMER_USERNAME,
+        ContainerTestUtils.OTHER_PRODUCER_USERNAME,
+        ContainerTestUtils.OTHER_CONSUMER_USERNAME,
+        ContainerTestUtils.STREAMS_USERNAME,
+        ContainerTestUtils.USER_1,
+        ContainerTestUtils.USER_2,
+        ContainerTestUtils.USER_3,
+      };
   private K3aEmbedded kafka;
 
   public void start() {
+    final String jaas_users_line = createJaasLoginLine();
     final Map<String, Object> map = new HashMap<>();
     map.put("listener.name.sasl_plaintext.sasl.enabled.mechanisms", "PLAIN");
-    map.put("listener.name.sasl_plaintext.plain.sasl.jaas.config", JAAS_ADMIN_USER_LINE);
-    map.put("listener.name.broker.plain.sasl.jaas.config", JAAS_ADMIN_USER_LINE);
-    map.put("listener.name.controller.plain.sasl.jaas.config", JAAS_ADMIN_USER_LINE);
+    map.put("listener.name.sasl_plaintext.plain.sasl.jaas.config", jaas_users_line);
+    map.put("listener.name.broker.plain.sasl.jaas.config", jaas_users_line);
+    map.put("listener.name.controller.plain.sasl.jaas.config", jaas_users_line);
     map.put("sasl.mechanism.inter.broker.protocol", "PLAIN");
     map.put("sasl.mechanism.controller.protocol", "PLAIN");
     map.put("sasl.enabled.mechanisms", "PLAIN");
@@ -54,5 +53,44 @@ public final class SaslPlaintextEmbeddedKafka {
 
   public String getBootstrapServers() {
     return kafka.getBootstrapServersForAdditionalPort(0);
+  }
+
+  private String createJaasLoginLine() {
+    /* Precondition: No usernames or passwords contain characters that need special handling for JAAS config. */
+    final StringBuilder sb = new StringBuilder();
+    sb.append("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"");
+    sb.append(ContainerTestUtils.DEFAULT_SUPER_USERNAME);
+    sb.append("\" password=\"");
+    sb.append(ContainerTestUtils.DEFAULT_SUPER_USERNAME);
+    sb.append("\" user_");
+    sb.append(ContainerTestUtils.DEFAULT_SUPER_USERNAME);
+    sb.append("=\"");
+    sb.append(ContainerTestUtils.DEFAULT_SUPER_USERNAME);
+    sb.append("\" user_");
+    sb.append(ContainerTestUtils.JULIE_USERNAME);
+    sb.append("=\"");
+    sb.append(ContainerTestUtils.JULIE_PASSWORD);
+    sb.append("\"");
+    for (final String userAndPassword : EXTRA_USERS) {
+      assertValidUsernameAndPassword(userAndPassword);
+      sb.append(" user_");
+      sb.append(userAndPassword);
+      sb.append("=\"");
+      sb.append(userAndPassword);
+      sb.append("\"");
+    }
+    sb.append(";");
+    return sb.toString();
+  }
+
+  private static String assertValidUsernameAndPassword(final String s) {
+    /* Enforcing, in order to not have to deal with escaping for the JAAS config. */
+    for (final char c : s.toCharArray()) {
+      if (!(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-')) {
+        throw new RuntimeException(
+            "Only letters, digits and hyphens allowed in usernames and passwords.");
+      }
+    }
+    return s;
   }
 }
