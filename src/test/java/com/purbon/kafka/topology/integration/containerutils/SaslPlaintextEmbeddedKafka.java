@@ -9,9 +9,19 @@ public final class SaslPlaintextEmbeddedKafka {
 
   private static final String JAAS_ADMIN_USER_LINE =
       "org.apache.kafka.common.security.plain.PlainLoginModule required "
-              + "username=\"" + ContainerTestUtils.DEFAULT_SUPER_USERNAME + "\" password=\"" + ContainerTestUtils.DEFAULT_SUPER_USERNAME + "\" user_kafka=\"" + ContainerTestUtils.DEFAULT_SUPER_PASSWORD + "\" "
-              + "user_" + ContainerTestUtils.JULIE_USERNAME + "=\"" + ContainerTestUtils.JULIE_PASSWORD + "\" "
-        + ";";
+          + "username=\""
+          + ContainerTestUtils.DEFAULT_SUPER_USERNAME
+          + "\" password=\""
+          + ContainerTestUtils.DEFAULT_SUPER_USERNAME
+          + "\" user_kafka=\""
+          + ContainerTestUtils.DEFAULT_SUPER_PASSWORD
+          + "\" "
+          + "user_"
+          + ContainerTestUtils.JULIE_USERNAME
+          + "=\""
+          + ContainerTestUtils.JULIE_PASSWORD
+          + "\" "
+          + ";";
   private K3aEmbedded kafka;
 
   public void start() {
