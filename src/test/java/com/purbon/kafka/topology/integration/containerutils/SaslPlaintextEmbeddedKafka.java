@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import no.shhsoft.k3aembedded.K3aEmbedded;
 import org.apache.kafka.metadata.authorizer.StandardAuthorizer;
+import org.testcontainers.Testcontainers;
 
 public final class SaslPlaintextEmbeddedKafka {
 
   private static final String[] EXTRA_USERS =
       new String[] {
-        ContainerTestUtils.UNKNOWN_USERNAME,
         ContainerTestUtils.NO_ACCESS_USERNAME,
         ContainerTestUtils.PRODUCER_USERNAME,
         ContainerTestUtils.CONSUMER_USERNAME,
@@ -53,6 +53,12 @@ public final class SaslPlaintextEmbeddedKafka {
 
   public String getBootstrapServers() {
     return kafka.getBootstrapServersForAdditionalPort(0);
+  }
+
+  public String getBootstrapServersForTestContainers() {
+    final int port = kafka.getAdditionalPort(0);
+    Testcontainers.exposeHostPorts(port);
+    return "host.testcontainers.internal:" + port;
   }
 
   private String createJaasLoginLine() {
