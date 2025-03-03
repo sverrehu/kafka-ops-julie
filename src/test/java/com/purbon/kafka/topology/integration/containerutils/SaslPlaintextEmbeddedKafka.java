@@ -58,7 +58,7 @@ public final class SaslPlaintextEmbeddedKafka {
   public String getBootstrapServersForTestContainers() {
     final int port = kafka.getAdditionalPort(0);
     Testcontainers.exposeHostPorts(port);
-    return "host.testcontainers.internal:" + port;
+    return "SASL_PLAINTEXT://host.testcontainers.internal:" + port;
   }
 
   private String createJaasLoginLine() {
