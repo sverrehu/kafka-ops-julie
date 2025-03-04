@@ -45,6 +45,7 @@ public final class SaslPlaintextEmbeddedKafka {
             .additionalListenerWithPortIndex("SASL_PLAINTEXT", "SASL_PLAINTEXT", 0)
             .build();
     kafka.start();
+    Testcontainers.exposeHostPorts(kafka.getAdditionalPort(0));
   }
 
   public void stop() {
@@ -56,9 +57,8 @@ public final class SaslPlaintextEmbeddedKafka {
   }
 
   public String getBootstrapServersForTestContainers() {
-    final int port = kafka.getAdditionalPort(0);
-    Testcontainers.exposeHostPorts(port);
-    return "SASL_PLAINTEXT://host.testcontainers.internal:" + port;
+//    return "SASL_PLAINTEXT://host.testcontainers.internal:" + kafka.getAdditionalPort(0);
+    return "SASL_PLAINTEXT://host.docker.internal:" + kafka.getAdditionalPort(0);
   }
 
   private String createJaasLoginLine() {
