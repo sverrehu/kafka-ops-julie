@@ -23,29 +23,48 @@ public final class SaslPlaintextEmbeddedKafka {
   private K3aEmbedded kafka;
 
   public void start() {
-    final String jaas_users_line = createJaasLoginLine();
+    final String jaasLoginLine = createJaasLoginLine();
     final Map<String, Object> map = new HashMap<>();
+    map.put("listener.name.broker.plain.sasl.jaas.config", jaasLoginLine);
+    map.put("listener.name.controller.plain.sasl.jaas.config", jaasLoginLine);
     map.put("listener.name.sasl_plaintext.sasl.enabled.mechanisms", "PLAIN");
-    map.put("listener.name.sasl_plaintext.plain.sasl.jaas.config", jaas_users_line);
-    map.put("listener.name.broker.plain.sasl.jaas.config", jaas_users_line);
-    map.put("listener.name.controller.plain.sasl.jaas.config", jaas_users_line);
+    map.put("listener.name.sasl_plaintext.plain.sasl.jaas.config", jaasLoginLine);
+    map.put("listener.name.testcontainers.sasl.enabled.mechanisms", "PLAIN");
+    map.put("listener.name.testcontainers.plain.sasl.jaas.config", jaasLoginLine);
     map.put("sasl.mechanism.inter.broker.protocol", "PLAIN");
     map.put("sasl.mechanism.controller.protocol", "PLAIN");
     map.put("sasl.enabled.mechanisms", "PLAIN");
     map.put("super.users", "User:kafka");
     map.put(
         "listener.security.protocol.map",
-        "BROKER:SASL_PLAINTEXT, CONTROLLER:SASL_PLAINTEXT, SASL_PLAINTEXT:SASL_PLAINTEXT");
+        "BROKER:SASL_PLAINTEXT, CONTROLLER:SASL_PLAINTEXT, SASL_PLAINTEXT:SASL_PLAINTEXT, TESTCONTAINERS:SASL_PLAINTEXT");
     map.put("authorizer.class.name", StandardAuthorizer.class.getName());
     kafka =
         new K3aEmbedded.Builder()
             .kraftMode(true)
-            .additionalPorts(1)
+            .additionalPorts(2)
             .additionalConfiguration(map)
             .additionalListenerWithPortIndex("SASL_PLAINTEXT", "SASL_PLAINTEXT", 0)
+            .additionalListenerWithPortIndex("TESTCONTAINERS", "SASL_PLAINTEXT", 1)
+            .additionalConfigurationProvider(
+                () -> {
+                  return Map.of(
+                      "advertised.listeners",
+                      "BROKER://:"
+                          + kafka.getBrokerPort()
+                          + ","
+                          + "CONTROLLER://:"
+                          + kafka.getControllerPort()
+                          + ","
+                          + "SASL_PLAINTEXT://:"
+                          + kafka.getAdditionalPort(0)
+                          + ","
+                          + "TESTCONTAINERS://host.testcontainers.internal:"
+                          + kafka.getAdditionalPort(1));
+                })
             .build();
     kafka.start();
-    Testcontainers.exposeHostPorts(kafka.getAdditionalPort(0));
+    Testcontainers.exposeHostPorts(kafka.getAdditionalPort(1));
   }
 
   public void stop() {
@@ -57,8 +76,7 @@ public final class SaslPlaintextEmbeddedKafka {
   }
 
   public String getBootstrapServersForTestContainers() {
-//    return "SASL_PLAINTEXT://host.testcontainers.internal:" + kafka.getAdditionalPort(0);
-    return "SASL_PLAINTEXT://host.docker.internal:" + kafka.getAdditionalPort(0);
+    return "TESTCONTAINERS://host.testcontainers.internal:" + kafka.getAdditionalPort(1);
   }
 
   private String createJaasLoginLine() {
