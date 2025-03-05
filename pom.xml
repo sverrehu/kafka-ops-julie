@@ -534,6 +534,12 @@
       <artifactId>k3a-embedded</artifactId>
       <version>${k3a.embedded.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.module</groupId>
+          <artifactId>jackson-module-scala_2.13</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
   </dependencies>
