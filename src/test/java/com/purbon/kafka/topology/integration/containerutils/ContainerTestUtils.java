@@ -39,10 +39,6 @@ public final class ContainerTestUtils {
     return getSaslJulieAdminClient(container.getBootstrapServers());
   }
 
-  public static AdminClient getSaslJulieAdminClient(final SaslPlaintextEmbeddedKafka kafka) {
-    return getSaslJulieAdminClient(kafka.getBootstrapServers());
-  }
-
   public static AdminClient getSaslJulieAdminClient(final String boostrapServers) {
     return AdminClient.create(getSaslConfig(boostrapServers, JULIE_USERNAME, JULIE_PASSWORD));
   }
@@ -81,20 +77,8 @@ public final class ContainerTestUtils {
       final SaslPlaintextKafkaContainer container,
       final String topologyResource,
       final String configResource) {
-    populateAcls(container.getBootstrapServers(), topologyResource, configResource);
-  }
-
-  public static void populateAcls(
-      final SaslPlaintextEmbeddedKafka kafka,
-      final String topologyResource,
-      final String configResource) {
-    populateAcls(kafka.getBootstrapServers(), topologyResource, configResource);
-  }
-
-  private static void populateAcls(
-      final String bootstrapServers, final String topologyResource, final String configResource) {
     TestUtils.deleteStateFile();
-    try (final AdminClient kafkaAdminClient = getSaslJulieAdminClient(bootstrapServers)) {
+    try (final AdminClient kafkaAdminClient = getSaslJulieAdminClient(container)) {
       final JulieOps julieOps =
           getKafkaTopologyBuilder(kafkaAdminClient, topologyResource, configResource);
       try {
@@ -136,15 +120,7 @@ public final class ContainerTestUtils {
   }
 
   public static void resetAcls(AlternativeKafkaContainer container) {
-    resetAcls(container.getBootstrapServers());
-  }
-
-  public static void resetAcls(SaslPlaintextEmbeddedKafka kafka) {
-    resetAcls(kafka.getBootstrapServers());
-  }
-
-  private static void resetAcls(String bootstrapServers) {
-    AdminClient admin = getSaslSuperUserAdminClient(bootstrapServers);
+    AdminClient admin = getSaslSuperUserAdminClient(container.getBootstrapServers());
     clearAllAcls(admin);
     setupJulieAcls(admin);
   }
