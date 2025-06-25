@@ -29,7 +29,10 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.common.quota.ClientQuotaEntity;
 import org.apache.kafka.common.quota.ClientQuotaFilter;
 import org.junit.*;
+import org.junit.runner.OrderWith;
+import org.junit.runner.manipulation.Alphanumeric;
 
+@OrderWith(Alphanumeric.class)
 public class QuotasManagerIT {
 
   private static SaslPlaintextKafkaContainer container;
@@ -199,7 +202,12 @@ public class QuotasManagerIT {
     assertTrue(action instanceof CreateQuotasAction);
 
     plan.getActions().clear();
-
+    try {
+      /* with CP 8.0.0 there are timing issues between updating quotas and querying them. */
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
     // Test NOOP plan update
     quotasManager.updatePlan(topology, plan);
     plan.run();
