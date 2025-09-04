@@ -23,10 +23,10 @@ public class JulieRoleAcl {
       @JsonProperty("permissionType") String permissionType) {
     this.resourceType = resourceType;
     this.resourceName = resourceName;
-    this.patternType = patternType;
-    this.host = host;
+    this.patternType = patternType == null ? "LITERAL" : patternType;
+    this.host = host == null ? "*" : host;
     this.operation = operation;
-    this.permissionType = permissionType;
+    this.permissionType = permissionType == null ? "ALLOW" : permissionType;
   }
 
   public String getResourceType() {
