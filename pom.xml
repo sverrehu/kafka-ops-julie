@@ -285,7 +285,6 @@
     <junit.version>4.13.2</junit.version>
     <kafka.version>4.0.0</kafka.version>
     <ksqldb.client.version>8.1.0</ksqldb.client.version>
-    <ksqldb.version>0.27.1</ksqldb.version>
     <log4j.version>2.25.2</log4j.version>
     <lombok.version>1.18.42</lombok.version>
     <mockito.version>5.20.0</mockito.version>
