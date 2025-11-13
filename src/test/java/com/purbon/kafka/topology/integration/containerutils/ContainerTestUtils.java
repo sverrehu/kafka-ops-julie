@@ -124,8 +124,8 @@ public final class ContainerTestUtils {
 
   public static void clearAclsAndTopics(AlternativeKafkaContainer container) {
     AdminClient admin = getSaslSuperUserAdminClient(container.getBootstrapServers());
-    clearAllAcls(admin);
     clearAllTopics(admin);
+    clearAllAcls(admin);
     setupJulieAcls(admin);
   }
 
@@ -139,8 +139,10 @@ public final class ContainerTestUtils {
 
   private static void clearAllTopics(AdminClient admin) {
     try {
-      admin.deleteTopics(
-          admin.listTopics(new ListTopicsOptions().listInternal(true)).names().get());
+      admin
+          .deleteTopics(admin.listTopics(new ListTopicsOptions().listInternal(true)).names().get())
+          .all()
+          .get();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
