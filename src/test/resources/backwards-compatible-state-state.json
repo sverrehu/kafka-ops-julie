@@ -1,0 +1,574 @@
+{
+  "bindings" : [
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "status",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "CLUSTER",
+      "resourceName" : "kafka-cluster",
+      "host" : "*",
+      "operation" : "CREATE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-offsets",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:baz-observer1",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-status",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:baz-observer1",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-offsets",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "CLUSTER",
+      "resourceName" : "kafka-cluster",
+      "host" : "*",
+      "operation" : "IDEMPOTENT_WRITE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicC",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicB",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "CLUSTER",
+      "resourceName" : "kafka-cluster",
+      "host" : "*",
+      "operation" : "CREATE",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicD",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicD",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "offset",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicA",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "status",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicC",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "foo",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "*",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "offset",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TRANSACTIONAL_ID",
+      "resourceName" : "1234",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicB",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "ALL",
+      "principal" : "User:App1",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicE",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "group",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "configs",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "contextOrg.source.foo.",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-configs",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:baz-observer2",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicA",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "connect-cluster",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TRANSACTIONAL_ID",
+      "resourceName" : "1234",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-status",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.foo",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "configs",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.bar.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "topicF",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App1",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.",
+      "host" : "*",
+      "operation" : "ALL",
+      "principal" : "User:App0",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "connect-configs",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:Connect2",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "contextOrg.source.foo.cat.avro",
+      "host" : "*",
+      "operation" : "WRITE",
+      "principal" : "User:App0",
+      "pattern" : "LITERAL",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "DESCRIBE",
+      "principal" : "User:baz-observer2",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "GROUP",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:baz-observer2",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    },
+    {
+      "resourceType" : "TOPIC",
+      "resourceName" : "applicationId-1",
+      "host" : "*",
+      "operation" : "READ",
+      "principal" : "User:baz-observer1",
+      "pattern" : "PREFIXED",
+      "scope" : null
+    }
+  ],
+  "accounts" : [ ],
+  "topics" : [
+    "contextOrg.source.foo.cat.avro",
+    "contextOrg.source.foo.foo",
+    "contextOrg.source.bar.bar.avro",
+    "contextOrg.source.baz.topicF",
+    "contextOrg.source.foo.bar.avro",
+    "contextOrg.source.baz.topicE"
+  ],
+  "connectors" : [ ],
+  "ksqlStreams" : [ ],
+  "ksqlTables" : [ ]
+}

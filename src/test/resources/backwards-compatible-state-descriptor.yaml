@@ -1,0 +1,78 @@
+---
+context: "contextOrg"
+source: "source"
+projects:
+  - name: "foo"
+    consumers:
+      - principal: "User:App0"
+        group: "foo"
+      - principal: "User:App1"
+    producers:
+      - principal: "User:App0"
+      - principal: "User:App2"
+        transactionId: "1234"
+      - principal: "User:App2"
+        idempotence: "true"
+    streams:
+      - principal: "User:App0"
+        topics:
+          read:
+            - "topicA"
+            - "topicB"
+          write:
+            - "topicC"
+            - "topicD"
+    connectors:
+      - principal: "User:Connect1"
+        cluster_id: "foo"
+        group: "group"
+        status_topic: "status"
+        offset_topic: "offset"
+        configs_topic: "configs"
+        topics:
+          read:
+            - "topicA"
+            - "topicB"
+      - principal: "User:Connect2"
+        topics:
+          write:
+            - "topicC"
+            - "topicD"
+    topics:
+      - name: "foo"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+      - name: "bar"
+        dataType: "avro"
+      - name: "cat"
+        dataType: "avro"
+        subject.name.strategy: "TopicRecordNameStrategy"
+  - name: "bar"
+    topics:
+      - dataType: "avro"
+        name: "bar"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+  - name: "baz"
+    streams:
+      - principal: "User:App1"
+        applicationId: "applicationId-1"
+        observerPrincipals:
+          - "User:baz-observer1"
+          - "User:baz-observer2"
+        topics:
+          read:
+            - "topicE"
+          write:
+            - "topicF"
+    topics:
+      - name: "topicE"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
+      - name: "topicF"
+        config:
+          replication.factor: "1"
+          num.partitions: "1"
